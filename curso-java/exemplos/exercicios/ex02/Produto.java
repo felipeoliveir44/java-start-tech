@@ -1,7 +1,7 @@
 package exemplos.exercicios.ex02;
 
 public class Produto {
-    int id = 0;
+    int id;
     String nome;
     double preco;
     int quantidade;
@@ -26,15 +26,14 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Produto(String nome, double preco, int quantidade) {
+
+    public Produto(int id, String nome, double preco, int quantidade) {
+        this.id = id;
         this.nome = nome;
         this.preco = preco;
-        retornarId();
+        this.quantidade = quantidade;
     }
-    public int retornarId() {
-        id = id + 1;
-        return id;
-    }
+
     public int getQuantidade() {
         return quantidade;
     }
