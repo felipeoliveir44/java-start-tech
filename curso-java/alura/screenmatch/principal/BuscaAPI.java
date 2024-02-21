@@ -1,5 +1,11 @@
 package alura.screenmatch.principal;
 
+import alura.screenmatch.modelos.Titulo;
+import alura.screenmatch.modelos.TituloOMDB;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -30,7 +36,20 @@ public class BuscaAPI {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         // O método response.body() retorna o corpo da resposta da API como uma string.
-        System.out.println(response.body());
+        // System.out.println(response.body());
+
+
+        // Instanciar Gson
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+        // Aqui, response.body contem uma representação em forma de String de um objeto JSON
+        String json = response.body();
+        // Aqui, converte a string json em um objeto do tipo Titulo. O fromJson é o método da classe que realiza a conversão
+        //Titulo meuTitulo = gson.fromJson(json, Titulo.class);
+
+        TituloOMDB titulo = gson.fromJson(json, TituloOMDB.class);
+        System.out.println(titulo);
+
     }
 
 }
