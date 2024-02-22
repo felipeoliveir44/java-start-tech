@@ -1,3 +1,5 @@
+package desafios.ex_1;
+
 public class Perfil {
     public static void main(String[] args) {
         String nome = "Luiz";

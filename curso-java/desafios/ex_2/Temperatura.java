@@ -1,3 +1,5 @@
+package desafios.ex_2;
+
 public class Temperatura {
     public static void main(String[] args) {
         double temperaturaCelsius = 30.00;
