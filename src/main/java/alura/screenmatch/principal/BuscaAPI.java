@@ -6,6 +6,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -49,6 +50,10 @@ public class BuscaAPI {
 
         TituloOMDB titulo = gson.fromJson(json, TituloOMDB.class);
         System.out.println(titulo);
+
+        FileWriter escrita = new FileWriter("filmes.txt");
+        escrita.write(titulo.toString());
+        escrita.close();
 
     }
 
