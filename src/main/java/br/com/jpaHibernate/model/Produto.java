@@ -2,6 +2,8 @@ package br.com.jpaHibernate.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
 // Estamos fazendo o mapeamento de uma entidade
 @Entity // Aqui dizemos que existe uma tabela no banco de dados que chama produto
 @Table(name = "produtos") // Aqui dizemos que o nome da tabela não é "Produto" e sim, tbprodutos
@@ -23,6 +25,36 @@ public class Produto {
     private String nome;
     private String descricao;
     private BigDecimal preco;
+
+
+    private LocalDate dataCadastro = LocalDate.now();
+    @ManyToOne
+    private Categoria categoria;
+    public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
+
+    public Produto() {
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Long getId() {
         return id;
@@ -54,5 +86,19 @@ public class Produto {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        return "Dados do produto: \n" +
+                "ID: " + id + "\n" +
+                "Nome: " + nome + "\n" +
+                "Descrição: " + descricao + "\n" +
+                "Preço: " + preco + "\n" +
+                "Data do cadastro: " + dataCadastro + "\n" +
+                "Categoria: " + categoria.getNome() + "\n" +
+                "--------------- \n"  ;
+
+
     }
 }
