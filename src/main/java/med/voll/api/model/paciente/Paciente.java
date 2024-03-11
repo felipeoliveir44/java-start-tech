@@ -1,43 +1,41 @@
-package med.voll.api.model.medico;
+package med.voll.api.model.paciente;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.endereco.DadosEndereco;
 import med.voll.api.endereco.Endereco;
+import med.voll.api.model.medico.DadosCadastroMedicos;
 
-@Entity(name = "Medico")
-@Table(name = "tbmedicos")
-
+@Entity
+@Table(name = "tbpacientes")
+@Getter
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-@Getter
-public class Medico {
+public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+
     private String nome;
     private String email;
     private String telefone;
-    private String crm;
-    @Enumerated(EnumType.STRING)
-    private Especialidade especialidade;
+    private String cpf;
     @Embedded
     private Endereco endereco;
 
-    private Boolean ativo;
-
-    public Medico(DadosCadastroMedicos dados) {
+    public Paciente(DadosCadastroPaciente dados) {
         this.nome = dados.nome();
         this.email = dados.email();
+        this.cpf = dados.cpf();
         this.telefone = dados.telefone();
-        this.crm = dados.crm();
-        this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
-        this.ativo = true;
     }
+
 
     public Long getId() {
         return id;
@@ -71,20 +69,12 @@ public class Medico {
         this.telefone = telefone;
     }
 
-    public String getCrm() {
-        return crm;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public Especialidade getEspecialidade() {
-        return especialidade;
-    }
-
-    public void setEspecialidade(Especialidade especialidade) {
-        this.especialidade = especialidade;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public Endereco getEndereco() {
@@ -93,24 +83,5 @@ public class Medico {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    public void atualizarInformacoes(DadosAtualizacaoMedicos dados) {
-        if(dados.nome() != null) {
-            this.nome = dados.nome();
-        }
-
-        if(dados.telefone() != null) {
-            this.telefone = dados.telefone();
-        }
-
-        if(dados.endereco() != null) {
-            this.endereco.atualizarEndereco(dados.endereco());
-        }
-
-    }
-
-    public void excluir() {
-        this.ativo = false;
     }
 }
